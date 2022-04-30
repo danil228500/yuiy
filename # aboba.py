@@ -1,4 +1,4 @@
-# это игра в стаканчики
+# aboba
 import random,time
 def myPred():
     print('''игрок решил посетить рынок зайдя на рынок. 
