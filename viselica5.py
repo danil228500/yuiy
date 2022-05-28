@@ -66,8 +66,8 @@ def vyborSlova(slovo):
     IndexS = random.randint(0,len(slovo)-1)
     return [slovo[sicretS][IndexS],sicretS]
 
-def kartina(errorS,yesS,secretS):
-    print(HANGMAN_PICS[len(errorS)])
+def kartina(errorS,yesS,secretS,hm):
+    print(hm[len(errorS)])
     print()
 
     print('ошибочные буквы',end=' ')
@@ -123,18 +123,20 @@ def vybrsloznasti():
         else:
             return us
 
-def delV(urovenS):
+def delV(urovenS,hangP):
     if urovenS == 'С':
-        del HANGMAN_PICS[10]
-        del HANGMAN_PICS[9]
+        del hangP[10]
+        del hangP[9]
     elif urovenS == 'Т':
-        del HANGMAN_PICS[10]
-        del HANGMAN_PICS[9]
-        del HANGMAN_PICS[8]
-        del HANGMAN_PICS[7]
+        del hangP[10]
+        del hangP[9]
+        del hangP[8]
+        del hangP[7]
+
+hm = HANGMAN_PICS
 
 bs = vybrsloznasti()
-delV(bs)
+delV(bs,hm)
 
 
         
@@ -147,7 +149,7 @@ while True:
     print(bs)
     if bs == 'Л':
         print('категория: '+sS)
-    kartina(errorG,yesG,sicretS)
+    kartina(errorG,yesG,sicretS,hm)
 
     bukva = getguess(errorG+yesG)
 
@@ -167,14 +169,16 @@ while True:
         errorG = errorG + bukva
         
         if len(errorG) == len(HANGMAN_PICS) - 1:
-            kartina(errorG,yesG,sicretS)
+            kartina(errorG,yesG,sicretS,hm)
             print('вы исчерпали все попытки\nнеугадоно букв:'+str(len(errorG))+'\nи угадоно букв:'+str(len(yesG))+'\nсекретное слово было:'+sicretS)
             gameOver = True
 
     if gameOver:
         if playagain():
-            print(bs)
-            delV(bs)
+            hm = HANGMAN_PICS
+
+            bs = vybrsloznasti()
+            delV(bs,hm)
 
             errorG = ''
             yesG = ''
