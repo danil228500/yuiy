@@ -124,7 +124,6 @@ def vybrsloznasti():
             return us
 
 def delV(urovenS):
-    urovenS = vybrsloznasti()
     if urovenS == 'С':
         del HANGMAN_PICS[10]
         del HANGMAN_PICS[9]
@@ -174,12 +173,12 @@ while True:
 
     if gameOver:
         if playagain():
-            bs = vybrsloznasti()
+            print(bs)
             delV(bs)
 
             errorG = ''
             yesG = ''
             gameOver=False
-            sicretS = vyborSlova(words)
+            sicretS,sS = vyborSlova(words)
         else:
             break
