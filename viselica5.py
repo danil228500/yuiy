@@ -1,5 +1,6 @@
 import random
-HANGMAN_PICS = ['''
+def sozdanieV():
+    HANGMAN_PICS = ['''
   +---+
       |
       |
@@ -55,6 +56,8 @@ HANGMAN_PICS = ['''
 [/|\] |
  / \  |
      ===''']
+    return HANGMAN_PICS
+
 words = {'животные':'медведь собака курица рыба кобра феникс'.split(),
          'обьекты':'фонарь ноутбук пистолет робот деньги лазер машина гантеля читы'.split(),
          'еда':'чебупель шаурма дошик бэпешка шоколадка арбуз абобус суп человек таракан'.split()}
@@ -132,21 +135,25 @@ def delV(urovenS,hangP):
         del hangP[9]
         del hangP[8]
         del hangP[7]
-
-hm = HANGMAN_PICS
-
-bs = vybrsloznasti()
-delV(bs,hm)
-
-
         
+#hm = HANGMAN_PICS
+
+#bs = vybrsloznasti()
+#delV(bs,hm)
+dV = True      
 errorG = ''
 yesG = ''
 gameOver=False
 sicretS,sS = vyborSlova(words)
 
 while True:
-    print(bs)
+    if dV:
+        hm = sozdanieV()
+
+        bs = vybrsloznasti()
+        delV(bs,hm)
+        dV = False
+
     if bs == 'Л':
         print('категория: '+sS)
     kartina(errorG,yesG,sicretS,hm)
@@ -168,21 +175,17 @@ while True:
     else:
         errorG = errorG + bukva
         
-        if len(errorG) == len(HANGMAN_PICS) - 1:
+        if len(errorG) == len(hm) - 1:
             kartina(errorG,yesG,sicretS,hm)
             print('вы исчерпали все попытки\nнеугадоно букв:'+str(len(errorG))+'\nи угадоно букв:'+str(len(yesG))+'\nсекретное слово было:'+sicretS)
             gameOver = True
 
     if gameOver:
         if playagain():
-            hm = HANGMAN_PICS
-
-            bs = vybrsloznasti()
-            delV(bs,hm)
-
             errorG = ''
             yesG = ''
             gameOver=False
             sicretS,sS = vyborSlova(words)
+            dV = True
         else:
             break
