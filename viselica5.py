@@ -62,9 +62,16 @@ words = {'животные':'медведь собака курица рыба �
          'обьекты':'фонарь ноутбук пистолет робот деньги лазер машина гантеля читы'.split(),
          'еда':'чебупель шаурма дошик бэпешка шоколадка арбуз абобус суп человек таракан'.split()}
 
-def vyborSlova(slovo):
+def vyborSlova(slovo,ys):
     # вЫБИРАЕМ слово
-    sicretS = random.choice(list(slovo.keys()))
+    if ys == 'Л':
+        for i in range(len(list(slovo.keys()))):
+            print(' введите '+str(i)+' для '+list(slovo.keys())[i])
+        vybK = input()
+        vybK = int(vybK)
+        sicretS = list(slovo.keys())[vybK]
+    else:
+        sicretS = random.choice(list(slovo.keys()))
 
     IndexS = random.randint(0,len(slovo)-1)
     return [slovo[sicretS][IndexS],sicretS]
@@ -144,7 +151,7 @@ dV = True
 errorG = ''
 yesG = ''
 gameOver=False
-sicretS,sS = vyborSlova(words)
+
 
 while True:
     if dV:
@@ -152,6 +159,7 @@ while True:
 
         bs = vybrsloznasti()
         delV(bs,hm)
+        sicretS,sS = vyborSlova(words,bs)
         dV = False
 
     if bs == 'Л':
@@ -185,7 +193,6 @@ while True:
             errorG = ''
             yesG = ''
             gameOver=False
-            sicretS,sS = vyborSlova(words)
             dV = True
         else:
             break
